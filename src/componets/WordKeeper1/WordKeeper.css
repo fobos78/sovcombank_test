@@ -1,0 +1,9 @@
+.WordKeeper{
+  width: 99%;
+  height: 100hv;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 5px;
+}
