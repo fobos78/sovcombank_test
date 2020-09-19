@@ -13,33 +13,63 @@ function WordKeeper() {
   const arr = [];
   const arrActualWords = [];
   let count = 0;
+  let i = 0;
 
-  async function searchWords(i) {
+  async function searchWords() {
     const obj = {};
     const respons = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${words[i]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
     const result = await respons.json();
     if (result[0] === undefined) {
-      i++;
+      // i++;
+      i--;
+      count++;
     } else
     if (result[0].meta) {
       obj.word = result[0].meta.id;
       obj.fl = result[0].fl;
       obj.shortdef = result[0].shortdef[0];
+      obj.uuid = result[0].meta.uuid;
       if (!(arr.find((el) => el.word === obj.word))) {
         arr.push(obj);
+      } else {
+        i--;
       }
     } else {
       console.log('result----', result);
       arrActualWords.push(result);
-      const respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
-      const result1 = await respons1.json();
+      console.log('arrActualWords----', arrActualWords);
+      let respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
+      let result1 = await respons1.json();
+      console.log('result1---->>>', result1);
       obj.word = result1[0].meta.id;
       obj.fl = result1[0].fl;
       obj.shortdef = result1[0].shortdef[0];
-      // count = Math.floor(Math.random() * 5);
+      obj.uuid = result1[0].meta.uuid;
       count++;
+      if (arrActualWords[0][count]) {
+        respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
+        result1 = await respons1.json();
+        console.log('result1---->>>', result1);
+        obj.word = result1[0].meta.id;
+        obj.fl = result1[0].fl;
+        obj.shortdef = result1[0].shortdef[0];
+        obj.uuid = result1[0].meta.uuid;
+        count++;
+      }
+      if (arrActualWords[0][count]) {
+        respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
+        result1 = await respons1.json();
+        console.log('result1---->>>', result1);
+        obj.word = result1[0].meta.id;
+        obj.fl = result1[0].fl;
+        obj.shortdef = result1[0].shortdef[0];
+        obj.uuid = result1[0].meta.uuid;
+        count++;
+      }
       if (!(arr.find((el) => el.word === obj.word))) {
         arr.push(obj);
+      } else {
+        i--;
       }
     }
 
@@ -57,8 +87,13 @@ function WordKeeper() {
 
   useEffect(() => {
     if (push) {
-      for (let i = 0; i < 10; i++) {
-        searchWords(i);
+      // for (let i = 0; i < 10; i++) {
+      //   searchWords(i);
+      // }
+
+      while (i < 20) {
+        searchWords();
+        i++;
       }
     }
   }, [push]);
@@ -77,6 +112,9 @@ function WordKeeper() {
     }
     setPush(push + 1);
   }
+  function addToStars() {
+   
+  }
   return (
     <div className="WordKeeper">
       <div>
@@ -90,12 +128,13 @@ function WordKeeper() {
         <>
           {
             wordsSearch.map((el) => (
-              <div>
+              <div className="Word">
                 <span><b>{{ ...el }.word}</b></span>
 &nbsp;
                 <span><i>{{ ...el }.fl}</i></span>
 &nbsp;
-                <span>{{ ...el }.shortdef}</span>
+                <span className="Word3">{{ ...el }.shortdef}</span>
+                <button type="button" onClick={addToStars}>add to stars</button>
               </div>
             ))
           }

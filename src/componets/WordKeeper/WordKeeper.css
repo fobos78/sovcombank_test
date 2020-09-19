@@ -7,3 +7,20 @@
   align-items: center;
   margin-bottom: 5px;
 }
+.Word{
+  width: 40%;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aquamarine;
+  border-radius: 3px;
+  border: 1px solid black;
+  margin-top: 5px;
+  overflow:hidden;
+}
+.Word3{
+  width: 60%;
+  height: 20px;
+  overflow:hidden;
+}
