@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import ThemeContext from '../../context';
 import './Header.css';
 
 function Header() {
-  const history = useHistory();
   const { focus } = useContext(ThemeContext);
-  console.log('history>>>>>>>>>>>', history.location.pathname);
   return (
     <>
       <div className="Header">
