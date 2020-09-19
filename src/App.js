@@ -5,10 +5,11 @@ import ThemeContext from './context';
 import './App.css';
 
 function App() {
-  const [starWords, setStarWord] = useState(['']);
+  const [starWords, setStarWord] = useState([]);
+  const [focus, setFocus] = useState(true);
 
   return (
-    <ThemeContext.Provider value={{ starWords, setStarWord }}>
+    <ThemeContext.Provider value={{ starWords, setStarWord, focus, setFocus }}>
       <div className="App">
         <MyRou />
       </div>

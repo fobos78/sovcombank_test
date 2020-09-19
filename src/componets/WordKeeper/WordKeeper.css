@@ -9,7 +9,7 @@
 }
 .Word{
   width: 40%;
-  height: 20px;
+  height: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,6 +21,6 @@
 }
 .Word3{
   width: 60%;
-  height: 20px;
+  height: 18px;
   overflow:hidden;
 }

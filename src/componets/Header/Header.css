@@ -10,3 +10,11 @@
   align-items: center;
   margin: 10px;
 }
+.focus{
+  width: 100px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: burlywood;
+}
