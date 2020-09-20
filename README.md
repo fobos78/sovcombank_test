@@ -23,7 +23,8 @@
 
 8. Должен работать фильтр части речи
 
-Использовать можно любой public api 
+Использовать можно любой public api  
+
 Merriam Webster https://dictionaryapi.com/
 
 Oxford Api https://developer.oxforddictionaries.com/
