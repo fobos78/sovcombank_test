@@ -1,6 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+
+## Тестовое задание: React.js разработчик
+Сделать приложение словарь с функционалом поиска и добавления в избранное
 
 In the project directory, you can run:
 
