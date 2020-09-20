@@ -3,67 +3,33 @@
 ## Тестовое задание: React.js разработчик
 Сделать приложение словарь с функционалом поиска и добавления в избранное
 
-In the project directory, you can run:
+Требования
+1. Поиск по первым и выдача первых 10 слов списком
 
-### `yarn start`
+2. Сортировку списка осуществить в алфавитном порядке
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. Если обозначение не влезает, обрезать его
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+3. При клике на слово можно открыть и увидеть больше обозначений и транскрипцию
 
-### `yarn test`
+4. Слова можно сохранять в избранное
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. Сессия должна сохраняться и не сбрасываться при обновлении страницы и перезагрузке браузера
 
-### `yarn build`
+6. На странице избранных слов можно поменять порядок слов перетаскиванием и удалить слово при клике на
+звездочку
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+7. Поиск должен работать и в странице избранных слов
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+8. Должен работать фильтр части речи
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Использовать можно любой public api 
+Merriam Webster https://dictionaryapi.com/
 
-### `yarn eject`
+Oxford Api https://developer.oxforddictionaries.com/
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Wordnik https://developer.wordnik.com/
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Words https://www.wordsapi.com/
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Дизайн может быть свой, для сетки нельзя использовать фреймворки.
