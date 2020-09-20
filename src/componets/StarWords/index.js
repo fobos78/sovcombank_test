@@ -12,9 +12,9 @@ function StarWords() {
   const [temporaryStore, setTemporaryStore] = useState([]);
   function delWord(el) {
     const arr = starWords.filter(item => item.word !== el.word);
-    const arr1 = temporaryStoreAll.filter(item => item.word !== el.word);
+    //const arr1 = temporaryStoreAll.filter(item => item.word !== el.word);
     delete localStorage[el.word];
-    setTemporaryStoreAll([...arr1]);
+    setTemporaryStoreAll([...arr]);
     setStarWord([...arr]);
   }
   setFocus(false);
