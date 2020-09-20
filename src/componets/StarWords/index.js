@@ -5,7 +5,7 @@ import ThemeContext from '../../context';
 import './StarWords.css';
 
 function StarWords() {
-  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, focus, setFocus } = useContext(ThemeContext);
+  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, indexLocalStorage, setIndexLocalStorage, focus, setFocus } = useContext(ThemeContext);
   const [modal, setModal] = useState(false);
   const [dataModal, setDataModal] = useState({});
   const [word, setWord] = useState('');
@@ -13,24 +13,21 @@ function StarWords() {
   function delWord(el) {
     const arr = starWords.filter(item => item.word !== el.word);
     const arr1 = temporaryStoreAll.filter(item => item.word !== el.word);
+    delete localStorage[el.word];
     setTemporaryStoreAll([...arr1]);
     setStarWord([...arr]);
   }
   setFocus(false);
   function MyDragStart() {
-    console.log('start');
   }
   function MyDragEnd(el) {
-    console.log('end');
     const arr = starWords.filter(item => item.word !== el.word);
     arr.push(el);
     setStarWord([...arr]);
   }
   function MyDragEnter() {
-    console.log('Enter');
   }
   function dragDrop() {
-    console.log('Drop');
   }
   function showModal(el) {
     setModal(true);
@@ -69,6 +66,16 @@ function StarWords() {
   useEffect(() => {
     setTemporaryStoreAll([...starWords]);
   }, []);
+  // useEffect(() => {
+  //   if (localStorage.length) {
+  //     if (indexLocalStorage < localStorage.length) {
+  //       const str = localStorage[localStorage.key(indexLocalStorage)];
+  //       const obj = JSON.parse(str);
+  //       setStarWord([...starWords, obj]);
+  //       setIndexLocalStorage(indexLocalStorage + 1);
+  //     }
+  //   }
+  // }, [indexLocalStorage]);
   return (
     <>
       <div className="StarWords" onDragEnter={MyDragEnter} onDrop={dragDrop}>

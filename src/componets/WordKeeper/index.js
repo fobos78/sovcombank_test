@@ -5,9 +5,10 @@ import ThemeContext from '../../context';
 import './WordKeeper.css';
 
 function WordKeeper() {
-  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, focus, setFocus } = useContext(ThemeContext);
-  // const { starWords, setStarWord,  focus, setFocus } = useContext(ThemeContext);// избранное
-  const [abc, setAbc] = useState(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);// массив алфавита
+  const {
+    starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, indexLocalStorage, setIndexLocalStorage, focus, setFocus,
+  } = useContext(ThemeContext);
+  const [abc, setAbc] = useState(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
   const [word, setWord] = useState('');
   const [wordsSearch, setWordsSearch] = useState([]);
   const [words, setWords] = useState([]);
@@ -22,13 +23,13 @@ function WordKeeper() {
 
   async function searchWords() {
     const obj = {};
-    const respons = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${words[i]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
-    const result = await respons.json();
-    if (result[0] === undefined) {
-      // i++;
-      i--;
-      count++;
-    } else
+    try {
+      const respons = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${words[i]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
+      const result = await respons.json();
+      if (result[0] === undefined) {
+        i--;
+        count++;
+      } else
       if (result[0].meta) {
         obj.word = result[0].meta.id;
         obj.fl = result[0].fl;
@@ -40,12 +41,12 @@ function WordKeeper() {
           i--;
         }
       } else {
-        console.log('result----', result);
+        // console.log('result----', result);
         arrActualWords.push(result);
-        console.log('arrActualWords----', arrActualWords);
+        // console.log('arrActualWords----', arrActualWords);
         let respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
         let result1 = await respons1.json();
-        console.log('result1---->>>', result1);
+        // console.log('result1---->>>', result1);
         obj.word = result1[0].meta.id;
         obj.fl = result1[0].fl;
         obj.shortdef = result1[0].shortdef[0];
@@ -54,7 +55,7 @@ function WordKeeper() {
         if (arrActualWords[0][count]) {
           respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
           result1 = await respons1.json();
-          console.log('result1---->>>', result1);
+          // console.log('result1---->>>', result1);
           obj.word = result1[0].meta.id;
           obj.fl = result1[0].fl;
           obj.shortdef = result1[0].shortdef[0];
@@ -64,7 +65,7 @@ function WordKeeper() {
         if (arrActualWords[0][count]) {
           respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
           result1 = await respons1.json();
-          console.log('result1---->>>', result1);
+          // console.log('result1---->>>', result1);
           obj.word = result1[0].meta.id;
           obj.fl = result1[0].fl;
           obj.shortdef = result1[0].shortdef[0];
@@ -77,7 +78,9 @@ function WordKeeper() {
           i--;
         }
       }
-
+    } catch (err) {
+      console.log('err1 words -', err);
+    }
     const arr4 = arr.sort((a, b) => {
       if (a.word.toLowerCase() > b.word.toLowerCase()) {
         return 1;
@@ -101,6 +104,16 @@ function WordKeeper() {
   useEffect(() => {
     setStarWord([...temporaryStoreAll]);
   }, [temporaryStoreAll]);
+  useEffect(() => {
+    if (localStorage.length) {
+      if (indexLocalStorage < localStorage.length) {
+        const str = localStorage[localStorage.key(indexLocalStorage)];
+        const obj = JSON.parse(str);
+        setStarWord([...starWords, obj]);
+        setIndexLocalStorage(indexLocalStorage + 1);
+      }
+    }
+  }, [indexLocalStorage]);
   function inputChange(event) {
     setWord(event.target.value);
     setWords([]);
@@ -120,6 +133,8 @@ function WordKeeper() {
     const newArr = [];
     newArr.push(el);
     setStarWord([...starWords, el]);
+    console.log('el', el);
+    localStorage[`${el.word}`] = JSON.stringify(el);
   }
   function showModal(el) {
     setModal(true);
@@ -138,12 +153,12 @@ function WordKeeper() {
           {
             wordsSearch.map((el) => (
               <div className="Word">
-                <span onClick={() => showModal(el)}><b>{{ ...el }.word}</b></span>
+                <span className="Word1" onClick={() => showModal(el)}><b>{{ ...el }.word}</b></span>
 &nbsp;
-                <span onClick={() => showModal(el)}><i>{{ ...el }.fl}</i></span>
+                <span className="Word2" onClick={() => showModal(el)}><i>{{ ...el }.fl}</i></span>
 &nbsp;
                 <span className="Word3" onClick={() => showModal(el)}>{{ ...el }.shortdef}</span>
-                <button type="button" onClick={() => addToStars(el)}>add to stars</button>
+                <button className="Word4" type="button" onClick={() => addToStars(el)}>add to stars</button>
               </div>
             ))
           }

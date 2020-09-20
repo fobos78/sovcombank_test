@@ -19,8 +19,23 @@
   margin-top: 5px;
   overflow:hidden;
 }
+.Word1{
+  width: 10%;
+  height: 18px;
+  overflow:hidden;
+}
+.Word2{
+  width: 20%;
+  height: 18px;
+  overflow:hidden;
+}
 .Word3{
   width: 60%;
+  height: 18px;
+  overflow:hidden;
+}
+.Word4{
+  width: 10%;
   height: 18px;
   overflow:hidden;
 }
