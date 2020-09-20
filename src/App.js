@@ -6,10 +6,11 @@ import './App.css';
 
 function App() {
   const [starWords, setStarWord] = useState([]);
+  const [temporaryStoreAll, setTemporaryStoreAll] = useState([]);
   const [focus, setFocus] = useState(true);
 
   return (
-    <ThemeContext.Provider value={{ starWords, setStarWord, focus, setFocus }}>
+    <ThemeContext.Provider value={{ starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, focus, setFocus }}>
       <div className="App">
         <MyRou />
       </div>

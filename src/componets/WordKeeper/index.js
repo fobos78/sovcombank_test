@@ -5,7 +5,8 @@ import ThemeContext from '../../context';
 import './WordKeeper.css';
 
 function WordKeeper() {
-  const { starWords, setStarWord, focus, setFocus } = useContext(ThemeContext);// избранное
+  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, focus, setFocus } = useContext(ThemeContext);
+  // const { starWords, setStarWord,  focus, setFocus } = useContext(ThemeContext);// избранное
   const [abc, setAbc] = useState(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);// массив алфавита
   const [word, setWord] = useState('');
   const [wordsSearch, setWordsSearch] = useState([]);
@@ -97,6 +98,9 @@ function WordKeeper() {
       }
     }
   }, [push]);
+  useEffect(() => {
+    setStarWord([...temporaryStoreAll]);
+  }, [temporaryStoreAll]);
   function inputChange(event) {
     setWord(event.target.value);
     setWords([]);
@@ -125,7 +129,7 @@ function WordKeeper() {
     <div className="WordKeeper">
       {modal && <Modal dataModal={dataModal} setModal={setModal} />}
       <div>
-        Search word:
+        Search in WodrKeeper:
         <input onChange={inputChange} value={word} />
         <button type="button" onClick={clickPush}>Push</button>
       </div>

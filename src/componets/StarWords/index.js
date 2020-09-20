@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Modal from '../Modal';
 import ThemeContext from '../../context';
 import './StarWords.css';
 
 function StarWords() {
-  const { starWords, setStarWord, focus, setFocus } = useContext(ThemeContext);
+  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, focus, setFocus } = useContext(ThemeContext);
   const [modal, setModal] = useState(false);
   const [dataModal, setDataModal] = useState({});
   const [word, setWord] = useState('');
+  const [temporaryStore, setTemporaryStore] = useState([]);
   function delWord(el) {
     const arr = starWords.filter(item => item.word !== el.word);
     setStarWord([...arr]);
@@ -16,8 +17,6 @@ function StarWords() {
   setFocus(false);
   function MyDragStart() {
     console.log('start');
-    // this.style = { { backgroundColor: 'red' } };
-    // requestAnimationFrame(() => (this.style.backgroundColor = 'transparent'), 0);
   }
   function MyDragEnd(el) {
     console.log('end');
@@ -37,20 +36,37 @@ function StarWords() {
   }
   function inputChange(event) {
     setWord(event.target.value);
-    
   }
   function clickPush() {
-    
+    setTemporaryStore([...starWords]);
+    function recursionArr(arrWords, index) {
+      const arr = arrWords.filter((el) => el.word[index] === word[index]);
+      if (index === word.length - 1) {
+        return arr;
+      }
+      index++;
+      return recursionArr(arr, index);
+    }
+    setStarWord([...recursionArr(starWords, 0)]);
   }
+  function showAll() {
+    setStarWord([...temporaryStoreAll]);
+  }
+  useEffect(() => {
+    setTemporaryStoreAll([...starWords]);
+  }, []);
   return (
     <>
       <div className="StarWords" onDragEnter={MyDragEnter} onDrop={dragDrop}>
-      {modal && <Modal dataModal={dataModal} setModal={setModal} />}
-      <div>
-        Search word:
+        {modal && <Modal dataModal={dataModal} setModal={setModal} />}
+        <div>
+          <button type="button" onClick={() => showAll()}>show all</button>
+        </div>
+        <div>
+          Search in StarWords:
         <input onChange={inputChange} value={word} />
-        <button type="button" onClick={clickPush}>Push</button>
-      </div>
+          <button type="button" onClick={clickPush}>Push</button>
+        </div>
         {starWords[0] && (
           <>
             {
