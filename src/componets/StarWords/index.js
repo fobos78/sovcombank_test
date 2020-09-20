@@ -12,6 +12,8 @@ function StarWords() {
   const [temporaryStore, setTemporaryStore] = useState([]);
   function delWord(el) {
     const arr = starWords.filter(item => item.word !== el.word);
+    const arr1 = temporaryStoreAll.filter(item => item.word !== el.word);
+    setTemporaryStoreAll([...arr1]);
     setStarWord([...arr]);
   }
   setFocus(false);
@@ -52,6 +54,18 @@ function StarWords() {
   function showAll() {
     setStarWord([...temporaryStoreAll]);
   }
+  function showAbbreviation() {
+    const arr = starWords.filter((el) => el.fl === 'abbreviation');
+    setStarWord([...arr]);
+  }
+  function showNoun() {
+    const arr = starWords.filter((el) => el.fl === 'noun');
+    setStarWord([...arr]);
+  }
+  function showVerb() {
+    const arr = starWords.filter((el) => el.fl === 'verb');
+    setStarWord([...arr]);
+  }
   useEffect(() => {
     setTemporaryStoreAll([...starWords]);
   }, []);
@@ -61,6 +75,9 @@ function StarWords() {
         {modal && <Modal dataModal={dataModal} setModal={setModal} />}
         <div>
           <button type="button" onClick={() => showAll()}>show all</button>
+          <button type="button" onClick={() => showAbbreviation()}>abbreviation</button>
+          <button type="button" onClick={() => showNoun()}>noun</button>
+          <button type="button" onClick={() => showVerb()}>verb</button>
         </div>
         <div>
           Search in StarWords:
