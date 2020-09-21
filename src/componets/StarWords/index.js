@@ -5,11 +5,12 @@ import ThemeContext from '../../context';
 import './StarWords.css';
 
 function StarWords() {
-  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, focus, setFocus } = useContext(ThemeContext);
+  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, indexLocalStorage, setIndexLocalStorage, focus, setFocus } = useContext(ThemeContext);
   const [modal, setModal] = useState(false);
   const [dataModal, setDataModal] = useState({});
   const [word, setWord] = useState('');
   const [temporaryStore, setTemporaryStore] = useState([]);
+  const [count, setCount] = useState(0);
   function delWord(el) {
     const arr = starWords.filter(item => item.word !== el.word);
     //const arr1 = temporaryStoreAll.filter(item => item.word !== el.word);
@@ -48,9 +49,6 @@ function StarWords() {
     }
     setStarWord([...recursionArr(starWords, 0)]);
   }
-  function showAll() {
-    setStarWord([...temporaryStoreAll]);
-  }
   function showAbbreviation() {
     const arr = starWords.filter((el) => el.fl === 'abbreviation');
     setStarWord([...arr]);
@@ -63,25 +61,22 @@ function StarWords() {
     const arr = starWords.filter((el) => el.fl === 'verb');
     setStarWord([...arr]);
   }
+  function showAll() {
+    setStarWord([...temporaryStoreAll]);
+    // if (count >= localStorage.length) {
+    //   setCount(0);
+    //   setStarWord([]);
+    // }
+  }
   useEffect(() => {
     setTemporaryStoreAll([...starWords]);
   }, []);
-  // useEffect(() => {
-  //   if (localStorage.length) {
-  //     if (indexLocalStorage < localStorage.length) {
-  //       const str = localStorage[localStorage.key(indexLocalStorage)];
-  //       const obj = JSON.parse(str);
-  //       setStarWord([...starWords, obj]);
-  //       setIndexLocalStorage(indexLocalStorage + 1);
-  //     }
-  //   }
-  // }, [indexLocalStorage]);
   return (
     <>
       <div className="StarWords" onDragEnter={MyDragEnter} onDrop={dragDrop}>
         {modal && <Modal dataModal={dataModal} setModal={setModal} />}
         <div>
-          <button type="button" onClick={() => showAll()}>show all</button>
+          <button id="showAll" type="button" onClick={() => showAll()}>show all</button>
           <button type="button" onClick={() => showAbbreviation()}>abbreviation</button>
           <button type="button" onClick={() => showNoun()}>noun</button>
           <button type="button" onClick={() => showVerb()}>verb</button>
