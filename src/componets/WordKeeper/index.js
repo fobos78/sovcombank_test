@@ -30,54 +30,54 @@ function WordKeeper() {
         i--;
         count++;
       } else
-      if (result[0].meta) {
-        obj.word = result[0].meta.id;
-        obj.fl = result[0].fl;
-        obj.shortdef = result[0].shortdef[0];
-        obj.uuid = result[0].meta.uuid;
-        if (!(arr.find((el) => el.word === obj.word))) {
-          arr.push(obj);
+        if (result[0].meta) {
+          obj.word = result[0].meta.id;
+          obj.fl = result[0].fl;
+          obj.shortdef = result[0].shortdef[0];
+          obj.uuid = result[0].meta.uuid;
+          if (!(arr.find((el) => el.word === obj.word))) {
+            arr.push(obj);
+          } else {
+            i--;
+          }
         } else {
-          i--;
-        }
-      } else {
-        // console.log('result----', result);
-        arrActualWords.push(result);
-        // console.log('arrActualWords----', arrActualWords);
-        let respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
-        let result1 = await respons1.json();
-        // console.log('result1---->>>', result1);
-        obj.word = result1[0].meta.id;
-        obj.fl = result1[0].fl;
-        obj.shortdef = result1[0].shortdef[0];
-        obj.uuid = result1[0].meta.uuid;
-        count++;
-        if (arrActualWords[0][count]) {
-          respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
-          result1 = await respons1.json();
+          // console.log('result----', result);
+          arrActualWords.push(result);
+          // console.log('arrActualWords----', arrActualWords);
+          let respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
+          let result1 = await respons1.json();
           // console.log('result1---->>>', result1);
           obj.word = result1[0].meta.id;
           obj.fl = result1[0].fl;
           obj.shortdef = result1[0].shortdef[0];
           obj.uuid = result1[0].meta.uuid;
           count++;
+          if (arrActualWords[0][count]) {
+            respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
+            result1 = await respons1.json();
+            // console.log('result1---->>>', result1);
+            obj.word = result1[0].meta.id;
+            obj.fl = result1[0].fl;
+            obj.shortdef = result1[0].shortdef[0];
+            obj.uuid = result1[0].meta.uuid;
+            count++;
+          }
+          if (arrActualWords[0][count]) {
+            respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
+            result1 = await respons1.json();
+            // console.log('result1---->>>', result1);
+            obj.word = result1[0].meta.id;
+            obj.fl = result1[0].fl;
+            obj.shortdef = result1[0].shortdef[0];
+            obj.uuid = result1[0].meta.uuid;
+            count++;
+          }
+          if (!(arr.find((el) => el.word === obj.word))) {
+            arr.push(obj);
+          } else {
+            i--;
+          }
         }
-        if (arrActualWords[0][count]) {
-          respons1 = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd4/json/${arrActualWords[0][count]}?key=7f3bd985-8595-4004-b953-672f4501bf55`);
-          result1 = await respons1.json();
-          // console.log('result1---->>>', result1);
-          obj.word = result1[0].meta.id;
-          obj.fl = result1[0].fl;
-          obj.shortdef = result1[0].shortdef[0];
-          obj.uuid = result1[0].meta.uuid;
-          count++;
-        }
-        if (!(arr.find((el) => el.word === obj.word))) {
-          arr.push(obj);
-        } else {
-          i--;
-        }
-      }
     } catch (err) {
       console.log('err1 words -', err);
     }
@@ -130,11 +130,13 @@ function WordKeeper() {
     setPush(push + 1);
   }
   function addToStars(el) {
-    const newArr = [];
-    newArr.push(el);
-    setStarWord([...starWords, el]);
-    console.log('el', el);
-    localStorage[`${el.word}`] = JSON.stringify(el);
+    if (!localStorage[`${el.word}`]) {
+      const newArr = [];
+      newArr.push(el);
+      setStarWord([...starWords, el]);
+      console.log('el', el);
+      localStorage[`${el.word}`] = JSON.stringify(el);
+    }
   }
   function showModal(el) {
     setModal(true);

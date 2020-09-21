@@ -5,7 +5,7 @@ import ThemeContext from '../../context';
 import './StarWords.css';
 
 function StarWords() {
-  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, indexLocalStorage, setIndexLocalStorage, focus, setFocus } = useContext(ThemeContext);
+  const { starWords, setStarWord, temporaryStoreAll, setTemporaryStoreAll, focus, setFocus } = useContext(ThemeContext);
   const [modal, setModal] = useState(false);
   const [dataModal, setDataModal] = useState({});
   const [word, setWord] = useState('');
